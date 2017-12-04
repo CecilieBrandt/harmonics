@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5A02331C-C9DD-4198-9125-AD194B5A4202}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Harmonics</RootNamespace>
+    <AssemblyName>Harmonics</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MathNet.Numerics, Version=3.20.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.3.20.0\lib\net40\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="Plankton">
+      <HintPath>..\..\..\..\..\AppData\Roaming\Grasshopper\Libraries\Plankton.dll</HintPath>
+    </Reference>
+    <Reference Include="PlanktonGh">
+      <HintPath>..\..\..\..\..\AppData\Roaming\Grasshopper\Libraries\PlanktonGh.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="RhinoCommon">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Rhinoceros 5 (64-bit)\System\RhinoCommon.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Grasshopper">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Cecilie\AppData\Roaming\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\Grasshopper.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="GH_IO">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Cecilie\AppData\Roaming\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\GH_IO.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdjustArea.cs" />
+    <Compile Include="AutoSlider.cs" />
+    <Compile Include="BackCalcWeights.cs" />
+    <Compile Include="Boundary.cs" />
+    <Compile Include="CotangentLaplacian.cs" />
+    <Compile Include="EigenDecomposition.cs" />
+    <Compile Include="Eigenfunction.cs" />
+    <Compile Include="ExtractEigenvectors.cs" />
+    <Compile Include="GraphLaplacian.cs" />
+    <Compile Include="HarmonicsInfo.cs" />
+    <Compile Include="ModeDisplay.cs" />
+    <Compile Include="ModeDisplayRhino.cs" />
+    <Compile Include="Morphing.cs" />
+    <Compile Include="PeaksTroughs.cs" />
+    <Compile Include="PlanktonNormals.cs" />
+    <Compile Include="PlanktonPoly.cs" />
+    <Compile Include="PlanktonTag.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Resources\AdjustedAreaIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AutoSliderIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BackCalculateWeightsIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BoundaryConditionsIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CotangentLaplacianIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EigenfunctionIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EigenvaluesIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ExtractEigenvaluesIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GraphLaplacianIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\KangarooNonlinearBucklingIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LoadDistributionIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\modeVisualiserIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ModeVisualiserRhinoIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MorphingIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PeaksAndTroughsIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PMeshFromPolylineIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PMeshTaggingIconi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RobotExportIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SquidPreviewIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VertexNormalsIcon.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y "$(TargetDir)$(ProjectName).dll" "C:\Users\Cecilie\AppData\Roaming\Grasshopper\Libraries\$(ProjectName).gha"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <FallbackCulture>en-US</FallbackCulture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartProgram>C:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino.exe</StartProgram>
+    <StartArguments>
+    </StartArguments>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+</Project>

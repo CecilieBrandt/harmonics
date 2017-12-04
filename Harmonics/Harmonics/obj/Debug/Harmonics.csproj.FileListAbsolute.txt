@@ -1,0 +1,11 @@
+C:\Users\Cecilie\Documents\CBO workspace\Harmonics\Harmonics\Harmonics\bin\Harmonics.dll
+C:\Users\Cecilie\Documents\CBO workspace\Harmonics\Harmonics\Harmonics\bin\Harmonics.pdb
+C:\Users\Cecilie\Documents\CBO workspace\Harmonics\Harmonics\Harmonics\bin\Plankton.dll
+C:\Users\Cecilie\Documents\CBO workspace\Harmonics\Harmonics\Harmonics\bin\PlanktonGh.dll
+C:\Users\Cecilie\Documents\CBO workspace\Harmonics\Harmonics\Harmonics\obj\Debug\Harmonics.csprojResolveAssemblyReference.cache
+C:\Users\Cecilie\Documents\CBO workspace\Harmonics\Harmonics\Harmonics\obj\Debug\Harmonics.Properties.Resources.resources
+C:\Users\Cecilie\Documents\CBO workspace\Harmonics\Harmonics\Harmonics\obj\Debug\Harmonics.csproj.GenerateResource.Cache
+C:\Users\Cecilie\Documents\CBO workspace\Harmonics\Harmonics\Harmonics\obj\Debug\Harmonics.dll
+C:\Users\Cecilie\Documents\CBO workspace\Harmonics\Harmonics\Harmonics\obj\Debug\Harmonics.pdb
+C:\Users\Cecilie\Documents\CBO workspace\Harmonics\Harmonics\Harmonics\bin\MathNet.Numerics.dll
+C:\Users\Cecilie\Documents\CBO workspace\Harmonics\Harmonics\Harmonics\bin\MathNet.Numerics.xml
