@@ -29,7 +29,6 @@ namespace Harmonics
             pManager.AddGenericParameter("PMesh", "PMesh", "The PlanktonMesh to use topology from", GH_ParamAccess.item);
             pManager.AddMatrixParameter("Eigenvectors", "v", "The eigenvectors to display", GH_ParamAccess.item);
             pManager.AddIntegerParameter("RowCount", "rowCount", "The number of modes to be displayed in a row", GH_ParamAccess.item, 5);
-            pManager.AddIntegerParameter("IndexHighlight", "highlight", "Index to highlight by rectangle", GH_ParamAccess.item, 0);
             pManager.AddIntegerParameter("ColourOption", "cOption", "0: grey scale, 1: absolute grey scale", GH_ParamAccess.item, 0);
         }
 
@@ -38,8 +37,7 @@ namespace Harmonics
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddMeshParameter("Mesh", "Mesh", "Mesh", GH_ParamAccess.list);
-            pManager.AddCurveParameter("HighlightFrame", "frame", "Frame to highlight the selected mode index", GH_ParamAccess.item);
+            pManager.AddMeshParameter("Mesh", "Mesh", "Mesh catalogue", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -52,8 +50,10 @@ namespace Harmonics
             PlanktonMesh pMesh = null;
             DA.GetData(0, ref pMesh);
 
+
             Matrix mV = null;
             DA.GetData(1, ref mV);
+
 
             int rowCount = 5;
             DA.GetData(2, ref rowCount);
@@ -66,19 +66,9 @@ namespace Harmonics
                 rowCount = mV.ColumnCount;
             }
 
-            int index = 0;
-            DA.GetData(3, ref index);
-            if (index < 0)
-            {
-                index = 0;
-            }
-            else if (index >= mV.ColumnCount)
-            {
-                index = mV.ColumnCount - 1;
-            }
 
             int cOption = 0;
-            DA.GetData(4, ref cOption);
+            DA.GetData(3, ref cOption);
             if (cOption < 0)
             {
                 cOption = 0;
@@ -105,8 +95,8 @@ namespace Harmonics
             }
 
             //Scaled frames to highligt the specified index
-            List<Polyline> scaledFrames = createdScaledFrames(grid);
-            Polyline highlight = scaledFrames[index];
+            //List<Polyline> scaledFrames = createdScaledFrames(grid);
+            //Polyline highlight = scaledFrames[index];
 
             //Convert PMeshes to normal meshes and spary with colour
             List<Mesh> colourMeshes = new List<Mesh>();
@@ -139,7 +129,6 @@ namespace Harmonics
 
             //Output
             DA.SetDataList(0, colourMeshes);
-            DA.SetData(1, highlight);
         }
 
         //Methods

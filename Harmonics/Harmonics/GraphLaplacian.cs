@@ -32,7 +32,6 @@ namespace Harmonics
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddMatrixParameter("GraphLaplacian", "L", "The Laplacian matrix with uniform weightings", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("k", "k", "The maximum number of eigenvalues/vectors to calculate", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -47,8 +46,6 @@ namespace Harmonics
 
             //------------------------------------------------------
 
-            int k = pMesh.Vertices.Count;
-
             //Create LB matrix
             Matrix mL = calcGraphLaplacian(pMesh);
 
@@ -56,7 +53,6 @@ namespace Harmonics
 
             //Output
             DA.SetData(0, mL);
-            DA.SetData(1, k);
         }
 
         // GRAPH LAPLACIAN

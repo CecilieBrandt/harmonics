@@ -36,8 +36,7 @@ namespace Harmonics
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddNumberParameter("eigenValues", "lambda", "The calculated eigenvalues as a list", GH_ParamAccess.list);     //name, input parameter name on component, description, type
-            pManager.AddNumberParameter("eigenVectors", "eigsVec", "The calculated eigenvectors as a list", GH_ParamAccess.tree);
+            pManager.AddNumberParameter("eigenValues", "lambda", "The calculated eigenvalues as a list", GH_ParamAccess.list);
             pManager.AddMatrixParameter("eigenvectorMatrix", "v", "The calculated eigenvectors in matrix form (columns)", GH_ParamAccess.item);
         }
 
@@ -82,7 +81,6 @@ namespace Harmonics
 
             //Create lists to store data
             List<double> eigenValuesOutput = new List<double>();
-            DataTree<double> eigenVectorsOutput = new DataTree<double>();
             Matrix eigenVectorMatrixOutput = null;
 
 
@@ -122,10 +120,6 @@ namespace Harmonics
                     for (int j = 0; j < eigsCount; j++)
                     {
                         double val = eigsVec[i, j];
-
-                        GH_Path path = new GH_Path(j);
-                        eigenVectorsOutput.Add(val, path);
-
                         eigenVectorMatrixOutput[i, j] = val;
                     }
                 }
@@ -135,8 +129,7 @@ namespace Harmonics
 
             //Output
             DA.SetDataList(0, eigenValuesOutput);
-            DA.SetDataTree(1, eigenVectorsOutput);
-            DA.SetData(2, eigenVectorMatrixOutput);        
+            DA.SetData(1, eigenVectorMatrixOutput);       
         }
 
 

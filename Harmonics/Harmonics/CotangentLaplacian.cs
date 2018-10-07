@@ -24,7 +24,7 @@ namespace Harmonics
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("PlanktonMesh", "PMesh", "PlanktonMesh to use topology from", GH_ParamAccess.item);
+            pManager.AddGenericParameter("PlanktonMesh", "PMesh", "PlanktonMesh to use topology from (has to be triangulated)", GH_ParamAccess.item);
             pManager.AddIntegerParameter("AreaWeightingOption", "Opt", "0: Barycenter.  1: Voronoi.  2: Unweighted", GH_ParamAccess.item, 1);
         }
 
@@ -34,7 +34,6 @@ namespace Harmonics
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddMatrixParameter("CotangentLaplacian", "L", "The Laplacian matrix with cotangent weightings", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("k", "k", "The maximum number of eigenvalues/vectors to calculate", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -60,7 +59,6 @@ namespace Harmonics
             }
 
             //-------------------------------------------
-            int k = pMesh.Vertices.Count;
 
             //Test if triangular input mesh
             bool triangular = isTriangular(pMesh);
@@ -83,7 +81,6 @@ namespace Harmonics
 
             //Output
             DA.SetData(0, mL);
-            DA.SetData(1, k);
         }
 
         //Methods

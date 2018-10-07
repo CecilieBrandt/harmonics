@@ -32,7 +32,6 @@ namespace Harmonics
             pManager.AddMatrixParameter("EigenvectorMatrix", "v", "The eigenvector matrix of the initial PlanktonMesh", GH_ParamAccess.item);
             pManager.AddIntegerParameter("EigsCount", "k", "The number of eigenvectors to be used for back-calculation", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Option", "opt", "0: k most significant eigenvectors, 1: first k eigenvectors", GH_ParamAccess.item, 0);
-            pManager.AddBooleanParameter("Rounding", "round", "Round the weights and scale factor off to 2 decimals", GH_ParamAccess.item, true);
             pManager.AddBooleanParameter("PresetSliders", "preset", "If true, the sliders named (w0, w1, ..., wn, scale) are preset to the calculated values", GH_ParamAccess.item, false);
         }
 
@@ -88,11 +87,8 @@ namespace Harmonics
                 opt = 1;
             }
 
-            bool round = true;
-            DA.GetData(6, ref round);
-
             bool preset = false;
-            DA.GetData(7, ref preset);
+            DA.GetData(6, ref preset);
 
             //--------------------------------------------------------
 
@@ -103,7 +99,7 @@ namespace Harmonics
             List<double> weights = calcMHT(distanceSignal, mV);
             double scale = calcScaleFactor(weights);
 
-            List<double> weightsN = calcNormalisedWeights(weights, scale, round);          //normalised by scale factor and possibly rounded
+            List<double> weightsN = calcNormalisedWeights(weights, scale);          //normalised by scale factor
 
 
             //Sorting - eigenvector indices
@@ -126,13 +122,6 @@ namespace Harmonics
 
             //Extract the weights accordingly
             List<double> weightsNExtract = extractWeights(weightsN, eigsVIndices);
-
-
-            //Possibly round scale factor
-            if (round)
-            {
-                scale = Math.Round(scale, 2);
-            }
 
 
             //RMS
@@ -286,7 +275,7 @@ namespace Harmonics
 
 
         //Calculate normalised weights such that the largest value is +-1.0
-        public List<double> calcNormalisedWeights(List<double> weights, double scale, bool round)
+        public List<double> calcNormalisedWeights(List<double> weights, double scale)
         {
             List<double> normalisedWeights = new List<double>();
             foreach (double w in weights)
@@ -295,11 +284,6 @@ namespace Harmonics
                 if (scale != 0.0)
                 {
                     val /= scale;
-                }
-
-                if (round)
-                {
-                    val = Math.Round(val, 2);
                 }
 
                 normalisedWeights.Add(val);

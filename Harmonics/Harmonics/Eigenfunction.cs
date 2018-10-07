@@ -41,8 +41,7 @@ namespace Harmonics
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddMeshParameter("SprayedRhinoMesh", "RMesh", "The harmonic RhinoMesh (colour sprayed)", GH_ParamAccess.item);
-            pManager.AddGenericParameter("PlanktonMesh", "pMesh", "The harmonic PlanktonMesh", GH_ParamAccess.item);
+            pManager.AddMeshParameter("Mesh", "Mesh", "The harmonic mesh (colour sprayed)", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -119,7 +118,6 @@ namespace Harmonics
 
             //Output
             DA.SetData(0, rhinoMesh);
-            DA.SetData(1, pMeshNew);
         }
 
         //Methods
