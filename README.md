@@ -16,13 +16,11 @@ Dependencies
 ============
 Install the following plugins:
 
-[Kangaroo2](http://www.food4rhino.com/app/kangaroo-physics) 
+[Math.Net Numerics](https://numerics.mathdotnet.com/)
 
 [Plankton](https://github.com/meshmash/Plankton/releases)
 
 [Squid](http://www.food4rhino.com/app/squid)
-
-[Math.Net Numerics](https://numerics.mathdotnet.com/)
 
 
 Feedback and enhancements
@@ -43,4 +41,4 @@ Thanks to Paul Shepherd and Paul Richens from the University of Bath
 Literature
 ===============
 The theory behind the implementation is described here:
-http://www.ceciliebrandt.com/cases/harmonic-form-finding/
+https://researchportal.bath.ac.uk/en/publications/harmonic-form-finding-for-the-design-of-curvature-stiffened-shell
