@@ -133,7 +133,7 @@ namespace Harmonics
 
         //Methods
 
-        //Create a rectangle as the mesh bounding box
+        //Create a rectangle as the mesh bounding box in XY plane
         public Rectangle createBoundingBox(PlanktonMesh pMesh)
         {
             List<double> xCoord = new List<double>();
