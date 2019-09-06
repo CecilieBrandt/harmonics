@@ -80,7 +80,20 @@ namespace Harmonics
 
 
             //------------------------------------------------------------------------------
+            double w, h;
+            Point3d ptCurrent = getFrameProperties(pMesh, out w, out h);
 
+            List<Point3d> gridPts = createGrid(w, h, mV.ColumnCount, rowCount);
+
+            List<PlanktonMesh> modePMeshes = new List<PlanktonMesh>();
+            foreach(Point3d ptNew in gridPts)
+            {
+                modePMeshes.Add(moveMesh(pMesh, ptCurrent, ptNew));
+            }
+            
+
+
+            /*
             //Create PMesh bounding box
             Rectangle bbox = createBoundingBox(pMesh);
 
@@ -93,10 +106,7 @@ namespace Harmonics
             {
                 modePMeshes.Add(framedPMesh(pMesh, frame));
             }
-
-            //Scaled frames to highligt the specified index
-            //List<Polyline> scaledFrames = createdScaledFrames(grid);
-            //Polyline highlight = scaledFrames[index];
+            */
 
             //Convert PMeshes to normal meshes and spary with colour
             List<Mesh> colourMeshes = new List<Mesh>();
@@ -133,6 +143,83 @@ namespace Harmonics
 
         //Methods
 
+        //Get mesh centre and XY bbox dimension
+        public Point3d getFrameProperties(PlanktonMesh pMesh, out double w, out double h)
+        {
+            List<double> xCoord = new List<double>();
+            List<double> yCoord = new List<double>();
+            Point3d cPt = new Point3d(0, 0, 0);
+
+            w = 0.0;
+            h = 0.0;
+
+            foreach (PlanktonVertex pV in pMesh.Vertices)
+            {
+                xCoord.Add(pV.X);
+                yCoord.Add(pV.Y);
+            }
+
+            double xRange = xCoord.Max() - xCoord.Min();
+            double yRange = yCoord.Max() - yCoord.Min();
+
+            cPt.X = xCoord.Min() + xRange * 0.5;
+            cPt.Y = yCoord.Min() + yRange * 0.5;
+
+            w = xRange;
+            h = yRange;
+
+            return cPt;
+        }
+
+        //Create grid of points
+        public List<Point3d> createGrid(double w, double h, int numberOfModes, int rowCount)
+        {
+            List<Point3d> gridPts = new List<Point3d>();
+
+            double spacing = w * 0.01;
+
+            int countX = 0;
+            int countY = 0;
+
+            for (int i = 0; i < numberOfModes; i++)
+            {
+                double x = (w + spacing) * countX;
+                double y = (h + spacing) * countY;
+
+                gridPts.Add(new Point3d(x, y, 0));
+
+                countX++;
+
+                if (i % (rowCount-1) == 0)
+                {
+                    countX = 0;
+                    countY++;
+                }
+            }
+
+            return gridPts;
+        }
+
+
+        //Create mesh at new location
+        public PlanktonMesh moveMesh(PlanktonMesh pMesh, Point3d ptCurrent, Point3d ptNew)
+        {
+            PlanktonMesh pMeshNew = new PlanktonMesh(pMesh);
+            Vector3d move = new Vector3d(ptNew - ptCurrent);
+
+            for(int i=0; i<pMeshNew.Vertices.Count; i++)
+            {
+                pMeshNew.Vertices[i].X += Convert.ToSingle(move.X);
+                pMeshNew.Vertices[i].Y += Convert.ToSingle(move.Y);
+                pMeshNew.Vertices[i].Z += Convert.ToSingle(move.Z);
+            }
+
+            return pMeshNew;
+        }
+
+
+
+        /*
         //Create a rectangle as the mesh bounding box in XY plane
         public Rectangle createBoundingBox(PlanktonMesh pMesh)
         {
@@ -228,7 +315,7 @@ namespace Harmonics
 
             return pMeshFrame;
         }
-
+        */
 
 
         //Map nodal values into vertex colurs for a specific mode
@@ -278,6 +365,7 @@ namespace Harmonics
         }
 
 
+        /*
         //Scale highlighted rectangle
         public Polyline scaleRectangle(Rectangle rec)
         {
@@ -299,8 +387,9 @@ namespace Harmonics
 
             return pl;
         }
+        */
 
-
+        /*
         //Create a new list of scaled rectangles as polylines
         public List<Polyline> createdScaledFrames(List<Rectangle> frames)
         {
@@ -313,7 +402,7 @@ namespace Harmonics
 
             return scaledFrames;
         }
-
+        */
 
         /// <summary>
         /// Provides an Icon for the component.
