@@ -28,7 +28,8 @@ namespace Harmonics
         {
             pManager.AddGenericParameter("PMesh", "PMesh", "The PlanktonMesh to use topology from", GH_ParamAccess.item);
             pManager.AddMatrixParameter("Eigenvectors", "v", "The eigenvectors to display", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("RowCount", "rowCount", "The number of modes to be displayed in a row", GH_ParamAccess.item, 5);
+            pManager.AddIntegerParameter("RowCount", "rowCount", "The number of modes to be displayed in a row", GH_ParamAccess.item, 10);
+            pManager.AddNumberParameter("Spacing", "spacing", "The spacing between meshes as a multiplier of the width/height", GH_ParamAccess.item, 0.1);
             pManager.AddIntegerParameter("ColourOption", "cOption", "0: grey scale, 1: absolute grey scale", GH_ParamAccess.item, 0);
         }
 
@@ -50,10 +51,8 @@ namespace Harmonics
             PlanktonMesh pMesh = null;
             DA.GetData(0, ref pMesh);
 
-
             Matrix mV = null;
             DA.GetData(1, ref mV);
-
 
             int rowCount = 5;
             DA.GetData(2, ref rowCount);
@@ -66,9 +65,16 @@ namespace Harmonics
                 rowCount = mV.ColumnCount;
             }
 
+            double spacingMultiplier = 0.1;
+            DA.GetData(3, ref spacingMultiplier);
+            if(spacingMultiplier < 0.0)
+            {
+                spacingMultiplier = 0.0;
+            }
+
 
             int cOption = 0;
-            DA.GetData(3, ref cOption);
+            DA.GetData(4, ref cOption);
             if (cOption < 0)
             {
                 cOption = 0;
@@ -83,7 +89,7 @@ namespace Harmonics
             double w, h;
             Point3d ptCurrent = getFrameProperties(pMesh, out w, out h);
 
-            List<Point3d> gridPts = createGrid(w, h, mV.ColumnCount, rowCount);
+            List<Point3d> gridPts = createGrid(w, h, spacingMultiplier, mV.ColumnCount, rowCount);
 
             List<PlanktonMesh> modePMeshes = new List<PlanktonMesh>();
             foreach(Point3d ptNew in gridPts)
@@ -172,11 +178,11 @@ namespace Harmonics
         }
 
         //Create grid of points
-        public List<Point3d> createGrid(double w, double h, int numberOfModes, int rowCount)
+        public List<Point3d> createGrid(double w, double h, double spacingMultiplier, int numberOfModes, int rowCount)
         {
             List<Point3d> gridPts = new List<Point3d>();
 
-            double spacing = w * 0.01;
+            double spacing = Math.Max(w, h) * spacingMultiplier;
 
             int countX = 0;
             int countY = 0;
@@ -190,7 +196,7 @@ namespace Harmonics
 
                 countX++;
 
-                if (i % (rowCount-1) == 0)
+                if ((i+1) % rowCount == 0)
                 {
                     countX = 0;
                     countY++;
