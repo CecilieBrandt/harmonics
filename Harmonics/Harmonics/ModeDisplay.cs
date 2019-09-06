@@ -17,7 +17,7 @@ namespace Harmonics
         /// </summary>
         public ModeDisplay()
           : base("ModeDisplay", "ModeDisplay",
-              "Creates the necessary data to visualise each vibrational mode on the Grasshopper canvas using Squid",
+              "Creates the necessary data to visualise each mode on the Grasshopper canvas using Squid",
               "Harmonics", "3 Display")
         {
         }
@@ -54,13 +54,11 @@ namespace Harmonics
             Matrix mV = null;
             DA.GetData(1, ref mV);
 
-            //--------------------------------------------------------------------
 
+            //Calculate
             Rectangle frame = createFrame(pMesh);
             List<Polyline> facePolygons = extractFacePolygons(pMesh, frame);
             DataTree<Color> modeColourTree = modeColouringTree(pMesh, mV);
-
-            //--------------------------------------------------------------------
 
 
             //Output

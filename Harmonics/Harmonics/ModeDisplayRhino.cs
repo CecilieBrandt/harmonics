@@ -85,7 +85,7 @@ namespace Harmonics
             }
 
 
-            //------------------------------------------------------------------------------
+            //Calculate
             double w, h;
             Point3d ptCurrent = getFrameProperties(pMesh, out w, out h);
 
@@ -96,23 +96,6 @@ namespace Harmonics
             {
                 modePMeshes.Add(moveMesh(pMesh, ptCurrent, ptNew));
             }
-            
-
-
-            /*
-            //Create PMesh bounding box
-            Rectangle bbox = createBoundingBox(pMesh);
-
-            //Create a gridstructure of rectangles
-            List<Rectangle> grid = gridStructure(bbox, mV.ColumnCount, rowCount);
-
-            //Create planktonmesh for each rectangle
-            List<PlanktonMesh> modePMeshes = new List<PlanktonMesh>();
-            foreach (Rectangle frame in grid)
-            {
-                modePMeshes.Add(framedPMesh(pMesh, frame));
-            }
-            */
 
             //Convert PMeshes to normal meshes and spary with colour
             List<Mesh> colourMeshes = new List<Mesh>();
@@ -141,7 +124,6 @@ namespace Harmonics
                 colourMeshes.Add(rhinoMesh);
             }
 
-            //------------------------------------------------------------------------
 
             //Output
             DA.SetDataList(0, colourMeshes);
@@ -176,6 +158,7 @@ namespace Harmonics
 
             return cPt;
         }
+
 
         //Create grid of points
         public List<Point3d> createGrid(double w, double h, double spacingMultiplier, int numberOfModes, int rowCount)
@@ -224,107 +207,7 @@ namespace Harmonics
         }
 
 
-
-        /*
-        //Create a rectangle as the mesh bounding box in XY plane
-        public Rectangle createBoundingBox(PlanktonMesh pMesh)
-        {
-            List<double> xCoord = new List<double>();
-            List<double> yCoord = new List<double>();
-
-            foreach (PlanktonVertex pV in pMesh.Vertices)
-            {
-                xCoord.Add(pV.X);
-                yCoord.Add(pV.Y);
-            }
-
-            double xRange = xCoord.Max() - xCoord.Min();
-            double yRange = yCoord.Max() - yCoord.Min();
-
-            int w = (int)Math.Ceiling(xRange);
-            int h = (int)Math.Ceiling(yRange);
-
-            Rectangle rec = new Rectangle(0, 0, w, h);
-
-            return rec;
-        }
-
-
-        //Rectangles arranged in grid structure with n modes in a row
-        public List<Rectangle> gridStructure(Rectangle bbox, int numberOfModes, int rowCount)
-        {
-            List<Rectangle> grid = new List<Rectangle>();
-
-            int w = bbox.Width;
-            int h = bbox.Height;
-
-            int spacing = (int)Math.Ceiling((double)w / 20);
-
-            int countX = 0;
-            int countY = 0;
-
-            for (int i = 1; i <= numberOfModes; i++)
-            {
-                int x = (w + spacing) * countX;
-                int y = -(h + spacing) * countY;
-
-                grid.Add(new Rectangle(x, y, w, h));
-
-                countX++;
-
-                if (i % rowCount == 0)
-                {
-                    countX = 0;
-                    countY++;
-                }
-            }
-            return grid;
-        }
-
-
-        //Create PMesh within a rectangular frame
-        public PlanktonMesh framedPMesh(PlanktonMesh pMesh, Rectangle frame)
-        {
-            PlanktonMesh pMeshFrame = new PlanktonMesh(pMesh);
-
-            //Map to frame domain
-            List<double> xCoord = new List<double>();
-            List<double> yCoord = new List<double>();
-
-            foreach (PlanktonVertex pV in pMeshFrame.Vertices)
-            {
-                xCoord.Add(pV.X);
-                yCoord.Add(pV.Y);
-            }
-
-            double xMin = xCoord.Min();
-            double xMax = xCoord.Max();
-            double yMin = yCoord.Min();
-            double yMax = yCoord.Max();
-
-            double xRange = xMax - xMin;
-            double yRange = yMax - yMin;
-
-            //Map all vertices into this domain
-            foreach (PlanktonVertex pV in pMeshFrame.Vertices)
-            {
-                double x_normal = (pV.X - xMin) / (xRange);
-                double x_map = frame.X + x_normal * (frame.Width);
-
-                double y_normal = (pV.Y - yMin) / (yRange);
-                double y_map = frame.Y + y_normal * (frame.Height);
-
-                pV.X = (float)x_map;
-                pV.Y = (float)y_map;
-                pV.Z = (float)0.0;
-            }
-
-            return pMeshFrame;
-        }
-        */
-
-
-        //Map nodal values into vertex colurs for a specific mode
+        //Map nodal values into vertex colours for a specific mode
         public List<Color> mapToColour(Matrix mV, int modeNumber, int option)
         {
             //list to contain vertex colours
@@ -370,45 +253,6 @@ namespace Harmonics
             return vertexColours;
         }
 
-
-        /*
-        //Scale highlighted rectangle
-        public Polyline scaleRectangle(Rectangle rec)
-        {
-            System.Drawing.Point pos = rec.Location;
-            int w = rec.Width;
-            int h = rec.Height;
-
-            int spacing = (int)Math.Ceiling((double)w / 20);
-            double offset = spacing / 2.0;
-
-            List<Point3d> scaledCornerPts = new List<Point3d>();
-            scaledCornerPts.Add(new Point3d(pos.X - offset, pos.Y - offset, 0));
-            scaledCornerPts.Add(new Point3d(pos.X + w + offset, pos.Y - offset, 0));
-            scaledCornerPts.Add(new Point3d(pos.X + w + offset, pos.Y + h + offset, 0));
-            scaledCornerPts.Add(new Point3d(pos.X - offset, pos.Y + h + offset, 0));
-            scaledCornerPts.Add(scaledCornerPts[0]);
-
-            Polyline pl = new Polyline(scaledCornerPts);
-
-            return pl;
-        }
-        */
-
-        /*
-        //Create a new list of scaled rectangles as polylines
-        public List<Polyline> createdScaledFrames(List<Rectangle> frames)
-        {
-            List<Polyline> scaledFrames = new List<Polyline>();
-
-            foreach (Rectangle rec in frames)
-            {
-                scaledFrames.Add(scaleRectangle(rec));
-            }
-
-            return scaledFrames;
-        }
-        */
 
         /// <summary>
         /// Provides an Icon for the component.
